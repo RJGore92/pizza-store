@@ -1,0 +1,30 @@
+.center-align {
+  text-align: center;
+  background-color: white;
+  width: 55%;
+}
+
+#topping-selection {
+  height: 270px;
+}
+
+.form-input-div-a {
+  height: 400px;
+  background-image: url("https://www.recipetips.com/images/glossary/p/pizza_toppings.jpg");
+  background-size: 400px 400px;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-top: 30px;
+}
+
+.form-input-div-b {
+  height: 400px;
+}
+
+.form-input-div-c {
+  height: 400px;
+  background-image: url("https://img1.mashed.com/img/gallery/12-best-and-12-worst-pizza-toppings-ever/12-best-and-12-worst-pizza-toppings-ever-1504454830.jpg");
+  background-size: 550px 400px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

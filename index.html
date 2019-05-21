@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css" type="text/css" media="all">
+    <script src="./js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script src="./js/scripts.js" type="text/javascript"></script>
+    <title>Pizza Store Orders</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="pizza-creation-form">
+        <div class="row">
+          <div class="col-4 px-1">
+            <div class="jumbotron form-input-div-a">
+              <div class="background-buffer" align="center">
+                <p class="center-align">Select your toppings</p>
+              </div>
+              <div class="form-group" align="center">
+                <select id="topping-selection" multiple>
+                  <option value="pepperoni">Pepperoni</option>
+                  <option value="sausage">Sausage</option>
+                  <option value="chicken">Chicken</option>
+                  <option value="canadian-bacon">Canadian Bacon</option>
+                  <option value="bacon">Bacon</option>
+                  <option value="pineapple">Pineapple</option>
+                  <option value="red-pepper">Red Pepper</option>
+                  <option value="green-pepper">Green Pepper</option>
+                  <option value="olives">Olives</option>
+                  <option value="onions">Onions</option>
+                  <option value="mushrooms">Mushrooms</option>
+                  <option value="tomatoes">Tomatoes</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 px-1">
+            <div class="jumbotron form-input-div-b">
+              <div class="form-group">
+                <label for="sauce-selection">Select what sauce you want on your pizza.</label>
+                <select id="sauce-selection">
+                  <option value="standard">Normal Pizza Sauce</option>
+                  <option value="bbq">BBQ sauce</option>
+                  <option value="ranch">Ranch Drizzle</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="cheese-confirm">Select what sauce you want on your pizza.</label>
+                <select id="cheese-confirm">
+                  <option value="add-cheese">Yes, add cheese.</option>
+                  <option value="light-cheese">Yes, use cheese lightly.</option>
+                  <option value="no-cheese">No, leave cheese off.</option>
+                </select>
+              </div>
+              <button type="submit" class="btn">Place your order</button>
+            </div>
+          </div>
+          <div class="col-4 px 1">
+            <div class="jumbotron form-input-div-c">
+              <div class="form-header" align="center">
+                <h5 class="center-align">Premade Arrangements</h5>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button type="button" class="btn" id="premade-one" onclick="premadeOneSelector()">Meat Lover's</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn" id="premade-two" onclick="premadeTwoSelector()">Veggie Lover's</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <button type="button" class="btn" id="premade-three" onclick="premadeThreeSelector()">Canadian Bacon and Pineapple</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <button type="button" class="btn" id="premade-four" onclick="premadeFourSelector()">Pepperoni and Sausage</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <button type="button" class="btn" id="premade-five" onclick="premadeFiveSelector()">Chicken Bacon Ranch</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button type="button" class="btn" id="premade-six" onclick="premadeSixSelector()">BBQ Chicken</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="order-form-outputs">
+
+      </div>
+    </div>
+  </body>
+</html>
