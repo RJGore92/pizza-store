@@ -373,12 +373,12 @@ function premadeSixSelector() {
 }
 
 $(document).ready(function() {
-  var pizzaPremadeOne = new Pizza(["Pepperoni", "Sausage", "Chicken", "Canadian Bacon", "Bacon"], "Standard Pizza Sauce", "Normal Cheese", "Meat Lover's", true);
-  var pizzaPremadeTwo = new Pizza(["Red Pepper", "Green Pepper", "Olives", "Onions", "Mushrooms", "Tomatoes"], "Standard Pizza Sauce", "Light Cheese", "Veggie Lover's", true);
-  var pizzaPremadeThree = new Pizza(["Canadian Bacon", "Bacon", "Pineapple"], "Standard Pizza Sauce", "Normal Cheese", "Canadian Bacon and Pineapple", true);
-  var pizzaPremadeFour = new Pizza(["Pepperoni", "Sausage"], "Standard Pizza Sauce", "Normal Cheese", "Pepperoni and Sausage", true);
-  var pizzaPremadeFive = new Pizza(["Chicken", "Bacon", "Onions", "Tomatoes"], "Ranch Drizzle", "Light Cheese", "Chicken Bacon Ranch", true);
-  var pizzaPremadeSix = new Pizza(["Chicken", "Onions", "Tomatoes"], "BBQ Sauce", "Normal Cheese", "BBQ Chicken", true);
+  var pizzaPremadeOne = new Pizza(["Pepperoni", "Sausage", "Chicken", "Canadian Bacon", "Bacon"], "Standard Pizza Sauce", "Normal Cheese", "Any", "Meat Lover's", true);
+  var pizzaPremadeTwo = new Pizza(["Red Pepper", "Green Pepper", "Olives", "Onions", "Mushrooms", "Tomatoes"], "Standard Pizza Sauce", "Light Cheese", "Any", "Veggie Lover's", true);
+  var pizzaPremadeThree = new Pizza(["Canadian Bacon", "Bacon", "Pineapple"], "Standard Pizza Sauce", "Normal Cheese", "Any", "Canadian Bacon and Pineapple", true);
+  var pizzaPremadeFour = new Pizza(["Pepperoni", "Sausage"], "Standard Pizza Sauce", "Normal Cheese" "Any", "Pepperoni and Sausage", true);
+  var pizzaPremadeFive = new Pizza(["Chicken", "Bacon", "Onions", "Tomatoes"], "Ranch Drizzle" "Any", "Light Cheese", "Chicken Bacon Ranch", true);
+  var pizzaPremadeSix = new Pizza(["Chicken", "Onions", "Tomatoes"], "BBQ Sauce", "Normal Cheese", "Any", "BBQ Chicken", true);
   premadePizzaList.orderPizza(pizzaPremadeOne);
   premadePizzaList.orderPizza(pizzaPremadeTwo);
   premadePizzaList.orderPizza(pizzaPremadeThree);
