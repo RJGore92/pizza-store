@@ -46,11 +46,19 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="cheese-confirm">Select what sauce you want on your pizza.</label>
+                <label for="cheese-confirm">Do you want cheese on your pizza?</label>
                 <select id="cheese-confirm">
                   <option value="add-cheese">Yes, add cheese.</option>
                   <option value="light-cheese">Yes, use cheese lightly.</option>
                   <option value="no-cheese">No, leave cheese off.</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="pizza-size">Select what size of pizza you want.</label>
+                <select id="pizza-size">
+                  <option value="small">Small (6 slices)</option>
+                  <option value="medium">Medium (8 slices)</option>
+                  <option value="large">Large (10 slices)</option>
                 </select>
               </div>
               <button type="submit" class="btn">Place your order</button>
@@ -93,7 +101,7 @@
           </div>
         </div>
       </form>
-      <div class="order-form-outputs">
+      <div id="order-form-outputs">
 
       </div>
     </div>

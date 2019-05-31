@@ -40,10 +40,11 @@ PizzaList.prototype.deleteOrderInfo = function (orderId) {
 var currentPizzaOrderList = new PizzaList();
 var premadePizzaList = new PizzaList();
 
-function Pizza(toppings, sauceType, cheeseAmount, pizzaType, isPremade) {
+function Pizza(toppings, sauceType, cheeseAmount, pizzaSize, pizzaType, isPremade) {
   this.toppings = toppings,
   this.sauceType= sauceType,
   this.cheeseAmount = cheeseAmount,
+  this.pizzaSize = pizzaSize;
   this.pizzaType = pizzaType,
   this.isPremade = isPremade;
 }
@@ -126,6 +127,8 @@ Pizza.prototype.determinePremade = function (premadesList) {
     if (this.toppings.length === premadesList.pizzasOrdered[i].toppings.length) {
       toppingsComparator:
       for (var j = 0; j < premadesList.pizzasOrdered[i].toppings.length; j++) {
+        // console.log(premadesList.pizzasOrdered[i].toppings[j]);
+        // console.log(this.toppings[j]);
         if (premadesList.pizzasOrdered[i].toppings[j] !== this.toppings[j]) {
           console.log(premadesList.pizzasOrdered[i].toppings[j] !== this.toppings[j]);
           continue premadePizzaComparator;
@@ -149,18 +152,37 @@ Pizza.prototype.determinePremade = function (premadesList) {
   return premadeConfirmCheck;
 };
 
+Pizza.prototype.adjustSize = function () {
+  var sizeVal = this.pizzaSize;
+  if(sizeVal === "small") {
+    this.pizzaSize = "Small Pizza (6 slices)"
+    this.sliceCount = 6;
+    return true;
+  }
+  else if(sizeVal === "medium") {
+    this.pizzaSize = "Medium Pizza (8 slices)"
+    this.sliceCount = 8;
+    return true;
+  }
+  else {
+    this.pizzaSize = "Large Pizza (10 slices)"
+    this.sliceCount = 10;
+    return true;
+  }
+};
+
 Pizza.prototype.determinePrice = function () {
   var estimatedSliceCost = 0.00;
-  var toppingCost = 0.25;
-  var cheeseCost = 0.30;
-  var bbqSauceCost = 0.50;
-  var ranchCost = 0.40;
+  var toppingCost = 0.20;
+  var cheeseCost = 0.40;
+  var bbqSauceCost = 0.60;
+  var ranchCost = 0.50;
   var standardSauceCost = 0.25;
   this.toppings.forEach(function(topping){
     estimatedSliceCost += toppingCost;
   });
   if (this.cheeseAmount === "Normal Cheese") {
-    estimatedSliceCost += (cheeseCost * 2);
+    estimatedSliceCost += (cheeseCost * 1.5);
   }
   if (this.cheeseAmount === "Light Cheese") {
     estimatedSliceCost += cheeseCost;
@@ -175,6 +197,77 @@ Pizza.prototype.determinePrice = function () {
     this.estimatedSliceCost += ranchCost;
   }
   console.log(estimatedSliceCost);
+  this.sliceCost = parseFloat(estimatedSliceCost.toFixed(2));
+  console.log(this.sliceCost);
+  this.pizzaTotalCost = parseFloat((this.sliceCost * this.sliceCount).toFixed(2));
+};
+
+Pizza.prototype.printReceipt = function () {
+  var bgRVal = Math.floor(Math.random() * 256);
+  var bgGVal = Math.floor(Math.random() * 256);
+  var bgBVal = Math.floor(Math.random() * 256);
+  var printedRows = (Math.floor(parseFloat((currentPizzaOrderList.pizzaOrderNumber) / 2)));
+  var targetPizza = currentPizzaOrderList.pizzaOrderNumber;
+  console.log(targetPizza);
+  console.log(printedRows);
+  if ((currentPizzaOrderList.pizzaOrderNumber === 0) || ((currentPizzaOrderList.pizzaOrderNumber) % 2 === 0)) {
+    $("div#order-form-outputs").append(
+      "<div class='row' id='output-row" + printedRows + "'></div>"
+    );
+  }
+  $("div#output-row"+printedRows).append(
+    "<div class='col-6' id='receipt"+ targetPizza + "'>" +
+      "<div class=jumbotron style='background-color:rgb(" + bgRVal + ", " + bgGVal + ", " + bgBVal + ");'>" +
+        "<div class='row'>" +
+          "<div class='col-6' id='pizza-receipt-img" + targetPizza + "'>" +
+          "</div>" +
+          "<div class='col-6'>" +
+            "<ul id='pizza-toppings" + targetPizza + "'></ul>" +
+          "</div>" +
+        "</div>" +
+        "<div class='row'>"+
+          "<div class='col-8'>"+
+            "<p>Pizza Sauce: <span id='pizza-sauce-print" + targetPizza +"'></span></p>" +
+            "<p>Pizza Cheese Amount: <span id='pizza-cheese-print" + targetPizza + "'></span></p>" +
+            "<p>Pizza Size (slice count): <span id='pizza-slice-count" + targetPizza + "'></span></p>" +
+          "</div>" +
+          "<div class='col-4'>" +
+            "<p>Slice Cost: $<span id='pizza-slice-cost-print" + targetPizza + "'></span></p>" +
+            "<p>Total Cost: $<span id='pizza-cost-print" + targetPizza + "'></span></p>" +
+          "</div>" +
+        "</div>" +
+      "</div>" +
+    "</div>"
+  );
+  for (var i = 0; i < this.toppings.length; i++) {
+    $("ul#pizza-toppings"+targetPizza).append("<li>"+this.toppings[i]+"</li>");
+  }
+  $("span#pizza-sauce-print" + targetPizza).text(this.sauceType);
+  $("span#pizza-cheese-print" + targetPizza).text(this.cheeseAmount);
+  $("span#pizza-slice-count" + targetPizza).text(this.sliceCount);
+  $("span#pizza-slice-cost-print" + targetPizza).text(parseFloat(this.sliceCost).toFixed(2));
+  $("span#pizza-cost-print" + targetPizza).text(parseFloat(this.pizzaTotalCost).toFixed(2));
+  if (this.pizzaType === "Custom") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://www.brosgiantpizza.com/wp-content/uploads/2016/08/custom-pizza.png' alt='Custom-Pizza.png' width='200' height='200'>");
+  }
+  if (this.pizzaType === "Meat Lover's") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://www.bakedbyrachel.com/wp-content/uploads/2014/08/meatloverspizza1_bakedbyrachel.jpg' alt='Meat-Lovers-Pizza.png' width='200'>");
+  }
+  if (this.pizzaType === "Veggie Lover's") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://www.tasteofhome.com/wp-content/uploads/2018/02/Grilled-Veggie-Pizza_EXPS_LSBZ18_48960_D01_18_6b-696x696.jpg' alt='Veggie-Pizza.jpg' width='200'>");
+  }
+  if (this.pizzaType === "Canadian Bacon and Pineapple") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://cdn.sallysbakingaddiction.com/wp-content/uploads/2014/08/It-doesnt-get-much-better-than-Homemade-Hawaiian-Pizza.-Tropical-paradise-for-dinner-2.jpg' alt='Hawaiian-Pizza.jpg' width='200'>");
+  }
+  if (this.pizzaType === "Pepperoni and Sausage") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://www.asweetpeachef.com/wp-content/uploads/2010/09/italian-sausage-pepperoni-pizza.png' alt='Pepperoni-Sausage-Pizza.png' width='200'>");
+  }
+  if (this.pizzaType === "Chicken Bacon Ranch") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://cloudfront.bjsrestaurants.com/img_57aa5818ab29a6.31949586_Chk.BaconRanchDDP-01.jpg' alt='Chicken-Bacon-Ranch-Pizza.jpg' width='200'>");
+  }
+  if (this.pizzaType === "BBQ Chicken") {
+    $("div#pizza-receipt-img" + targetPizza).append("<img src='https://cloudfront.bjsrestaurants.com/img_58ac9905a24c49.53752693_BBQDeepDishPizza_13-800.jpg' alt='BBQ-Chicken-Pizza.jpg' width='200'>");
+  }
 };
 
 function premadeOneSelector() {
@@ -200,7 +293,7 @@ function premadeTwoSelector() {
   $("select#topping-selection option[value='chicken']").prop('selected', false);
   $("select#topping-selection option[value='canadian-bacon']").prop('selected', false);
   $("select#topping-selection option[value='bacon']").prop('selected', false);
-  $("select#topping-selection option[value='pineapple']").prop('selected', true);
+  $("select#topping-selection option[value='pineapple']").prop('selected', false);
   $("select#topping-selection option[value='red-pepper']").prop('selected', true);
   $("select#topping-selection option[value='green-pepper']").prop('selected', true);
   $("select#topping-selection option[value='olives']").prop('selected', true);
@@ -299,14 +392,23 @@ $(document).ready(function() {
     var sauceType = $("select#sauce-selection").val();
     // console.log(sauceType);
     var cheeseAmount = $("select#cheese-confirm").val();
+    if (toppingsSelected.length === 0 && cheeseAmount === "no-cheese") {
+      alert("Please select at least one topping or add cheese for your pizza.");
+      return false;
+    }
     // console.log(cheeseAmount);
+    var sizeToMake = $("select#pizza-size").val();
     var defaultType = "Custom";
     var defaultPremadeConfirm = false;
-    var pendingPizza = new Pizza(toppingsSelected, sauceType, cheeseAmount, defaultType, defaultPremadeConfirm);
+    var pendingPizza = new Pizza(toppingsSelected, sauceType, cheeseAmount, sizeToMake, defaultType, defaultPremadeConfirm);
     pendingPizza.adjustToppings();
     pendingPizza.adjustSauce();
     pendingPizza.adjustCheese();
     pendingPizza.determinePremade(premadePizzaList);
+    pendingPizza.adjustSize();
+    pendingPizza.determinePrice();
     console.log(pendingPizza);
+    pendingPizza.printReceipt();
+    currentPizzaOrderList.orderPizza(pendingPizza);
   });
 });
